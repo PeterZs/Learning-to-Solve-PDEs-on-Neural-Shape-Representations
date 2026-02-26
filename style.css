@@ -70,6 +70,11 @@ a {
   font-weight: 500;
 }
 
+.conference {
+  margin: 0 0 var(--space-md);
+  color: var(--text-muted);
+  font-weight: 500;
+}
 .authors {
   margin: 0;
   font-size: 0.98rem;
