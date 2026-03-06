@@ -9,6 +9,8 @@ from utils.rot_update import rot_update
 from utils.define_band_points import define_band_points
 from utils.RBF_update import precompute_rbf_data, interpolate_from_precomputed
 from model.SurfNO import SurfNO_weights_only
+from utils.draw import plot_3d_point_cloud
+from tqdm import tqdm
 
 if __name__ == "__main__":
     # Put the path of your surface feature array (N,12) as used in the paper.
@@ -67,7 +69,15 @@ if __name__ == "__main__":
     # Project the solution on the surface for the time steps needed (e.g, the last one here)       
     neighbors_indices, factors, phi_vecs = precompute_rbf_data(band_points, Tree_band_points, surface_points, k=8, epsilon=1.0)
 
-    surface_solution = np.zeros(surface_points.shape[0])
-    surface_solution = interpolate_from_precomputed(U_over_t[-1, :], neighbors_indices, factors, phi_vecs, clipping=True)
-
+    # Interpolate for each time step
+    surface_solutions = np.zeros((nsteps + 1, surface_points.shape[0]))
+    
+    for t in tqdm(range(nsteps + 1), desc="Interpolating to surface"):
+        surface_solutions[t] = interpolate_from_precomputed(U_over_t[t], neighbors_indices, factors, phi_vecs, clipping=True)
+    
+    # Save the final solution as before
+    surface_solution = surface_solutions[-1]
     np.save("diffusion_solution.npy", surface_solution)
+    print("Diffusion solution saved to diffusion_solution.npy")
+    # Plot the animation
+    plot_3d_point_cloud(surface_points, surface_solutions, title="Heat Diffusion on Apple", output_file="heat_diffusion.html", frame_duration=300)

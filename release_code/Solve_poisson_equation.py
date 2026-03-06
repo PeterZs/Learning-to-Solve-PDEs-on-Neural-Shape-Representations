@@ -10,6 +10,7 @@ from scipy.sparse.linalg import spsolve
 from utils.RBF_update import precompute_rbf_data, interpolate_from_precomputed
 from utils.rot_update import rot_update
 from utils.define_band_points import define_band_points
+from utils.draw import plot_3d_point_cloud
 
 if __name__ == "__main__":
     # Put the path of your surface feature array (N,12) as used in the paper.
@@ -57,5 +58,10 @@ if __name__ == "__main__":
     solution_on_surface = np.zeros(surface_points.shape[0])
     solution_on_surface = interpolate_from_precomputed(U, neighbors_indices, factors, phi_vecs, clipping=True)
 
+
     # Saving the solution
     np.save("poisson_solution.npy", solution_on_surface)
+    print("Solution saved to poisson_solution.npy")
+    
+    # Plot the solution
+    plot_3d_point_cloud(surface_points, solution_on_surface, "Poisson Solution on Surface", output_file="poisson_solution.html")

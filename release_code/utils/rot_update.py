@@ -155,8 +155,9 @@ def function_update(neural_weights, band_values, all_local_band_indexes, all_dis
         band_local_values.append(torch.tensor(band_values[idx], dtype=torch.float32).unsqueeze(0)) # (1, local_size)
     band_local_values = torch.stack(band_local_values, dim=0)   # (B, 1, local_size)
 
-    input = band_local_values.unsqueeze(-1)             
+    input = band_local_values.unsqueeze(-1).to(neural_weights.device)             
     output = torch.matmul(neural_weights, input).squeeze(-1).squeeze(1).detach().cpu().numpy()  
+
 
     all_infos_updated_function = turn_into_dict(output, all_local_band_indexes, all_distances_to_central)
 

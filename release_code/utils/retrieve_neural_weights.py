@@ -106,7 +106,8 @@ def prepare_model_input_after_rot(band_pos_rot, surface_features_rot, tangent_pl
             band, surf = prepare_features(
                 surface_features_rot[rot_num][local_num], None, band_pos_rot[rot_num, local_num], 
                 tangent_plane = tangent_plane_rot[rot_num][local_num])
-            band_pos_norm_loc.append(torch.tensor(band, dtype=torch.float32))
+            band_pos_norm_loc.append(band.detach().clone().to(torch.float32))
+            # band_pos_norm_loc.append(torch.tensor(band, dtype=torch.float32))
             surface_feats_norm_loc.append(torch.tensor(surf, dtype=torch.float32))
         band_pos_norm.append(torch.stack(band_pos_norm_loc, dim=0)) 
         band_pos_norm_loc = []
@@ -216,8 +217,10 @@ def apply_rotations_batch(band_pos, surface_features, rotations, tangent_plane):
             t2 = princ[3:]
             c_r  = c @ R.T
             n_r  = n @ R.T
-            t1_r = torch.tensor(t1, dtype=band_pos.dtype) @ R.T
-            t2_r = torch.tensor(t2, dtype=band_pos.dtype) @ R.T
+            t1_r = t1.detach().clone().to(band_pos.dtype) @ R.T 
+            t2_r = t2.detach().clone().to(band_pos.dtype) @ R.T
+            # t1_r = torch.tensor(t1_r, dtype=band_pos.dtype) @ R.T
+            # t2_r = torch.tensor(t2, dtype=band_pos.dtype) @ R.T
             rot_tp_batch.append((c_r, n_r, (t1_r, t2_r)))
         tangent_plane_rot.append(rot_tp_batch)
 
@@ -272,8 +275,12 @@ def retrieve_neural_weights(surface_points, band_points, local_size, model, Tree
     neural_weights = [] 
     number = len(rotations)
 
+    device = next(model.parameters()).device
+    
     for i in range(number):
-        weights_rot = model(band_pos_input[i], surface_features_input[i])
+        band_in = band_pos_input[i].to(device)
+        surf_in = [s.to(device) for s in surface_features_input[i]]
+        weights_rot = model(band_in, surf_in)
         neural_weights.append(weights_rot)
 
     return neural_weights, all_distances_to_central, all_local_band_indexes
