@@ -1,11 +1,11 @@
 # Learning to Solve PDEs on Neural Shape Representations
 
 [![Website](https://img.shields.io/badge/Website-Live-blue)](https://welschinger.github.io/Learning-to-Solve-PDEs-on-Neural-Shape-Representations/)
-[![Code](https://img.shields.io/badge/Code-GitHub-black)](https://github.com/welschinger/Learning-to-Solve-PDEs-on-Neural-Shape-Representations/tree/main/release_code)
+[![Code](https://img.shields.io/badge/Code-GitHub-black)](https://github.com/welschinger/Learning-to-Solve-PDEs-on-Neural-Shape-Representations/tree/main/src)
 
 [![Paper](https://img.shields.io/badge/Paper-arXiv-b31b1b?style=for-the-badge&logo=arxiv)](https://arxiv.org/abs/2512.21311)
 
-This folder contains the code for the paper "Learning to Solve PDEs on Neural Shape Representations" under /release_code.
+This folder contains the code for the paper "Learning to Solve PDEs on Neural Shape Representations" under /src.
 
 <p align="center">
   <img src="assets/Teaser.png" width="800"/>
@@ -18,7 +18,7 @@ This folder contains the code for the paper "Learning to Solve PDEs on Neural Sh
 1.  **Clone the repository:**
     ```bash
     git clone https://github.com/welschinger/Learning-to-Solve-PDEs-on-Neural-Shape-Representations.git
-    cd Learning-to-Solve-PDEs-on-Neural-Shape-Representations/release_code
+    cd Learning-to-Solve-PDEs-on-Neural-Shape-Representations/src
     ```
 
 2.  **Install dependencies:**
