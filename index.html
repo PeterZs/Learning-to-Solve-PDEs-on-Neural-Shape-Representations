@@ -420,11 +420,24 @@
             </section>
 
             <!-- BibTeX -->
-            <!-- <section id="bibtex" class="section">
-                <h2>BibTeX</h2>
-                <pre class="bibtex-block">
-                </pre>
-            </section> -->
+            <section id="bibtex" class="section">
+                <div class="bibtex-header">
+                    <h2>BibTeX</h2>
+                    <button id="bibtex-copy-btn" class="bibtex-copy-btn" type="button" aria-label="Copy BibTeX citation">
+                        <svg class="bibtex-copy-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <path d="M16 1H6C4.895 1 4 1.895 4 3V15H6V3H16V1ZM19 5H10C8.895 5 8 5.895 8 7V21C8 22.105 8.895 23 10 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H10V7H19V21Z" />
+                        </svg>
+                        <span class="bibtex-copy-label">Copy</span>
+                    </button>
+                </div>
+                <pre id="bibtex-content" class="bibtex-block">@inproceedings{welschinger2026learning,
+  title     = {Learning to Solve PDEs on Neural Shape Representations},
+  author    = {Welschinger, Lilian and Liu, Yilin and Wang, Zican and Mitra, Niloy J},
+  booktitle = {Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  pages     = {20263--20272},
+  year      = {2026}
+}</pre>
+            </section>
 
             <!-- Acknowledgements -->
             <section id="acknowledgements" class="section">

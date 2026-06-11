@@ -516,17 +516,107 @@ a {
   display: block;
 }
 
-/* BIBTEX (if used) */
+/* BIBTEX */
 
-.bibtex {
+#bibtex {
+  padding: var(--space-lg);
+}
+
+.bibtex-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  margin-bottom: var(--space-md);
+}
+
+.bibtex-header h2 {
   margin: 0;
-  padding: var(--space-md);
+  font-size: 1.4rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: #0b1633;
+}
+
+.bibtex-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 0;
   border-radius: 12px;
-  background: #0b1020;
-  color: #e5e7eb;
+  padding: 0.5rem 0.85rem;
+  background: #2e63db;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.14s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 8px 20px rgba(46, 99, 219, 0.28);
+}
+
+.bibtex-copy-btn:hover {
+  transform: translateY(-1px);
+  background: #2557cd;
+}
+
+.bibtex-copy-btn:active {
+  transform: translateY(0);
+}
+
+.bibtex-copy-btn:focus-visible {
+  outline: 3px solid rgba(46, 99, 219, 0.35);
+  outline-offset: 2px;
+}
+
+.bibtex-copy-btn.is-copied {
+  background: #2a8c57;
+  box-shadow: 0 8px 20px rgba(42, 140, 87, 0.28);
+}
+
+.bibtex-copy-icon {
+  width: 1rem;
+  height: 1rem;
+  fill: currentColor;
+}
+
+.bibtex-copy-label {
+  display: inline-block;
+}
+
+.bibtex-block {
+  margin: 0;
+  width: 100%;
+  padding: 1rem 1.1rem;
+  border-radius: 12px;
+  border: 1px solid #d9dee7;
+  background: #d4d8df;
+  color: #1f293b;
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre;
   overflow-x: auto;
+}
+
+@media (max-width: 1024px) {
+  .bibtex-copy-btn {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.75rem;
+  }
+
+  .bibtex-block {
+    font-size: 0.85rem;
+    padding: 0.9rem;
+    border-radius: 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .bibtex-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* ---- Video embed ---- */

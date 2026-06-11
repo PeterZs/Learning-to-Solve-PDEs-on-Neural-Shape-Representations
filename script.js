@@ -290,6 +290,53 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+    const copyBtn = document.getElementById("bibtex-copy-btn");
+    const bibtexBlock = document.getElementById("bibtex-content");
+    if (!copyBtn || !bibtexBlock) return;
+
+    const label = copyBtn.querySelector(".bibtex-copy-label");
+    const defaultLabel = label ? label.textContent : "Copy";
+    let resetTimerId = null;
+
+    function setCopiedState() {
+        copyBtn.classList.add("is-copied");
+        if (label) {
+            label.textContent = "Copied";
+        }
+        if (resetTimerId) {
+            window.clearTimeout(resetTimerId);
+        }
+        resetTimerId = window.setTimeout(() => {
+            copyBtn.classList.remove("is-copied");
+            if (label) {
+                label.textContent = defaultLabel;
+            }
+        }, 1400);
+    }
+
+    copyBtn.addEventListener("click", async () => {
+        const citation = bibtexBlock.textContent || "";
+        if (!citation.trim()) return;
+
+        try {
+            await navigator.clipboard.writeText(citation);
+            setCopiedState();
+        } catch (err) {
+            const textarea = document.createElement("textarea");
+            textarea.value = citation;
+            textarea.setAttribute("readonly", "");
+            textarea.style.position = "fixed";
+            textarea.style.opacity = "0";
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textarea);
+            setCopiedState();
+        }
+    });
+});
+
 function loadJS(url) {
     return new Promise((resolve, reject) => {
         const s = document.createElement("script");
